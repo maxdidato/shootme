@@ -1,9 +1,12 @@
+require 'selenium-webdriver'
 module Shootme
+
   class Shooter
 
-    def self.credentials credentials=nil
-      @credentials = credentials if credentials
-      @credentials
+    attr_reader :credentials
+
+    def initialize(username:,password:)
+      @credentials = {username: username, password:password}
     end
 
     def save_browser_state
@@ -12,8 +15,8 @@ module Shootme
       return cookies, url
     end
 
-    def restore_cookies(cookies)
-      Capybara.current_session.visit('http://localhost:7001/')
+    def restore_cookies(cookies,url)
+      Capybara.current_session.visit(url)
       browser = Capybara.current_session.driver.browser
       cookies.each do |cookie|
         browser.manage.add_cookie :name => cookie[:name], :value => cookie[:value]
@@ -31,7 +34,7 @@ module Shootme
       name = "shootme#{rand(9999)}".to_sym
       Capybara.register_driver name do |app|
         Capybara::Selenium::Driver.new(app,
-                                       {:url => "http://#{self.class.credentials[:username]}:#{self.class.credentials[:password]}@hub.browserstack.com/wd/hub",
+                                       {:url => "http://#{@credentials[:username]}:#{@credentials[:password]}@hub.browserstack.com/wd/hub",
                                         :browser => :remote,
                                         :desired_capabilities => caps.merge!(opts)})
       end
@@ -42,7 +45,7 @@ module Shootme
       driver_name = set_driver browser_settings
       cookies, url = save_browser_state
       Capybara.using_driver driver_name do
-        restore_cookies(cookies)
+        restore_cookies(cookies,url)
         screenshot_name = "#{browser_settings[:browser].downcase}_#{browser_settings[:browser_version].downcase}"
         take_screenshot(url, screenshot_name)
       end

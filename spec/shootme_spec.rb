@@ -1,11 +1,16 @@
 require 'spec_helper'
 
-describe Shootme do
-  it 'has a version number' do
-    expect(Shootme::VERSION).not_to be nil
-  end
+describe Shootme::Shooter do
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+    context '#initialize' do
+
+      it 'accepts the credentials for Browserstack account' do
+        shooter = Shootme::Shooter.new(username:'username',password:'password')
+        expect(shooter.credentials[:username]).to eq('username')
+        expect(shooter.credentials[:password]).to eq('password')
+
+      end
+    end
+
+
   end
-end
