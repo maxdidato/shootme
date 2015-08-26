@@ -7,17 +7,7 @@ Given(/^I go on (.*)$/) do |url|
 end
 
 Then(/^I should see a screenshot including (.*)/) do |text|
-  # t = Thread.new{
-  # pid = Process.fork{
-  #    while(!File.exists?("/Users/mdidato/Projects/Personal/shootme/lib/Take a screenshot/ie_7.0.jpg")); end
-  # }
-  # Process.wait pid
-  # expect(RTesseract.new("/Users/mdidato/Projects/Personal/shootme/lib/Take a screenshot/ie_7.0.jpg").to_s).to include(text)
-
-  # WaitUtil.wait_for_condition("my_event to happen", :timeout_sec => 100, :delay_sec => 0.5) do
-  #    File.exists?("/Users/mdidato/Projects/Personal/shootme/lib/Take a screenshot/ie_7.0.jpg")
-  #  end
-  #  expect(RTesseract.new("/Users/mdidato/Projects/Personal/shootme/lib/Take a screenshot/ie_7.0.jpg").to_s).to include(text)
+  expect(RTesseract.new("/Users/mdidato/Projects/Personal/shootme/lib/The Screenshot/ie_7.0.jpg").to_s).to include(text)
 
 end
 

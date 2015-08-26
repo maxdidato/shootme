@@ -18,7 +18,7 @@ Scenario: Take a screenshot
   Scenario: The Screenshot
   When I go on http://localhost:4567/
   """
-  Then I should see a screenshot including MSIE9.0
+  Then I should see a screenshot including MSIE 7.0
 #
 #  @screenshot
 #  Scenario: Take a screenshot
