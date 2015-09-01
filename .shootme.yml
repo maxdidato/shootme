@@ -1,8 +1,9 @@
 ---
-credentials:
-  username: massimiliano8
-  password: password
-browsers:
+:credentials:
+  :username: massimiliano8
+  :password: scQH4sZwU3TYhWygmvpp
+:screenshots_folder: "/tmp"
+:browsers:
 - :browser: IE
   :browser_version: '7.0'
   :os: Windows
