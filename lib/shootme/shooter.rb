@@ -46,7 +46,7 @@ module Shootme
       cookies, url = save_browser_state
       Capybara.using_driver driver_name do
         restore_cookies(cookies,url)
-        screenshot_name = "#{browser_settings[:browser].downcase}_#{browser_settings[:browser_version].downcase}"
+        screenshot_name = "#{browser_settings[:browser].to_s.downcase}_#{browser_settings[:browser_version].to_s.downcase}"
         take_screenshot(url, screenshot_name)
       end
     end
