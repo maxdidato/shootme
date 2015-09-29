@@ -6,7 +6,7 @@ get '/' do
   <<-HTML
   <h1>#{env['HTTP_USER_AGENT']}</h1>
   <form action="/what" method="POST">
-        <input type="submit"/>
+        <input type="submit", value='Submit'/>
   </form>
   HTML
 

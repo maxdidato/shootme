@@ -24,12 +24,10 @@ module Shootme
     Cucumber::RbSupport::RbDsl.register_rb_hook('around', ["@screenshot"], proc)
 
     second_proc = Proc.new do |scenario, block|
-      other = scenario.dup
-      scenario.feature.instance_variable_set(:@feature_elements, [scenario.feature.feature_elements.first, scenario])
       config[:browsers].each do |browser_setting|
         driver_name= shooter.set_driver(browser_setting)
         Capybara.reset_sessions!
-        text = scenario.raw_steps.map { |step| step.keyword+step.name }.inject("") { |str, step| str = str+step+"\n" }
+        text = scenario.test_steps.map { |step| step.source.last.keyword+step.source.last.name }.inject("") { |str, step| str = str+step+"\n" }
         file = Tempfile.new(['hello', '.feature'], "#{project_dir}/features")
         file.write("Feature: #{browser_setting[:browser]} #{browser_setting[:browser_version]}\n Scenario: Perform\n"+text)
         file.close
