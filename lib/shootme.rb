@@ -2,7 +2,8 @@ require "shootme/version"
 require "shootme/shooter"
 module Shootme
   def self.included(base)
-    config= YAML.load_file("/Users/mdidato/Projects/Personal/shootme/.shootme.yml")
+    project_dir = Pathname.new($0).parent.parent
+    config= YAML.load_file("#{project_dir}/.shootme.yml")
     shooter = Shootme::Shooter.new(config[:credentials])
     proc=Proc.new do |scenario, block|
       block.call
@@ -29,10 +30,10 @@ module Shootme
         driver_name= shooter.set_driver(browser_setting)
         Capybara.reset_sessions!
         text = scenario.raw_steps.map { |step| step.keyword+step.name }.inject("") { |str, step| str = str+step+"\n" }
-        file = Tempfile.new(['hello', '.feature'], '/Users/mdidato/Projects/Personal/shootme/features')
+        file = Tempfile.new(['hello', '.feature'], "#{project_dir}/features")
         file.write("Feature: #{browser_setting[:browser]} #{browser_setting[:browser_version]}\n Scenario: Perform\n"+text)
         file.close
-        file2 = Tempfile.new(['hello', '.rb'], '/Users/mdidato/Projects/Personal/shootme/features/support')
+        file2 = Tempfile.new(['hello', '.rb'],  "#{project_dir}/features/support")
         file2.write("Capybara.current_driver=:#{driver_name}")
         file2.close
         # lambda {Cucumber::Cli::Main.execute([file.path, '-r', 'features'])}
