@@ -12,7 +12,7 @@ Then(/^the screenshot '(.*)' should include the text '(.*)'/) do |screenshot,tex
 end
 
 Given(/^I performed a tunnel to browserstack$/) do
-  process = ChildProcess.build("#{File.expand_path('../../../', __FILE__)}/tools/BrowserStackLocal", "scQH4sZwU3TYhWygmvpp")
+  process = ChildProcess.build("#{File.expand_path('../../../', __FILE__)}/tools/BrowserStackLocal", "nDHmVcRsS9stDEZi3pHy")
   process.io.inherit!
   process.start
 end
@@ -27,4 +27,12 @@ When(/^I execute this scenario$/) do |text|
   file.close
 puts  `cucumber --require features #{file.path}`
   file.unlink
+end
+
+Then(/^I should$/) do
+  page.click_button('Submit')
+end
+
+Then(/^I see$/) do
+  expect(page.html).to include("CIAO BELLO")
 end

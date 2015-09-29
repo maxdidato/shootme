@@ -1,13 +1,6 @@
 source 'https://rubygems.org'
+#ruby-gemset=shootme
 
+ruby '2.2.2'
 # Specify your gem's dependencies in shootme.gemspec
 gemspec
-
-gem 'sinatra'
-gem 'cucumber'
-gem 'capybara'
-gem 'selenium-webdriver'
-gem 'rspec'
-gem 'mirage'
-gem 'eventmachine'
-gem 'chromedriver-helper'

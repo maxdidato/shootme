@@ -33,4 +33,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rtesseract"
   spec.add_development_dependency "rmagick"
   spec.add_development_dependency "childprocess"
+  spec.add_development_dependency "chromedriver-helper"
+  spec.add_development_dependency "selenium-webdriver"
+  spec.add_development_dependency "capybara"
+  spec.add_development_dependency "cucumber"
+  spec.add_development_dependency "sinatra"
 end
