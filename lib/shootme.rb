@@ -34,9 +34,9 @@ module Shootme
         file2 = Tempfile.new(['hello', '.rb'],  "#{project_dir}/features/support")
         file2.write("Capybara.current_driver=:#{driver_name}")
         file2.close
-        # lambda {Cucumber::Cli::Main.execute([file.path, '-r', 'features'])}
+        Cucumber::Cli::Main.execute([file.path, '-r', 'features'])
         # puts  `cucumber --require features #{file.path}`
-        Cucumber::Runtime.new(configuration([file.path, '-r', 'features'])).run!
+        # Cucumber::Runtime.new(configuration([file.path, '-r', 'features'])).run!
         file.unlink
         file2.unlink
         #
@@ -46,9 +46,5 @@ module Shootme
     Cucumber::RbSupport::RbDsl.register_rb_hook('around', ["@multibrowser"], second_proc)
 
   end
-  def configuration args
-    configuration = Cucumber::Cli::Configuration.new(STDOUT, STDERR)
-    configuration.parse!(args)
-    configuration
-  end
+
 end
