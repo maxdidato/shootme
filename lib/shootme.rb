@@ -2,7 +2,7 @@ require "shootme/version"
 require "shootme/shooter"
 module Shootme
   def self.included(base)
-    project_dir = Pathname.new($0).parent.parent
+    project_dir =Pathname.new(caller.map{|el|el.split(':')}.find{|el| el[2]=="in `include'"}[0]).parent.parent.parent
     config= YAML.load_file("#{project_dir}/.shootme.yml")
     shooter = Shootme::Shooter.new(config[:credentials])
     proc=Proc.new do |scenario, block|
