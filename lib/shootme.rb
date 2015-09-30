@@ -34,7 +34,7 @@ module Shootme
         file2 = Tempfile.new(['hello', '.rb'], "#{project_dir}/features/support")
         file2.write("Capybara.current_driver=:#{driver_name}")
         file2.close
-        lambda { Cucumber::Cli::Main.execute([file.path, '-r', 'features']) }
+        lambda { Cucumber::Cli::Main.execute([file.path, '-r', 'features']) }.call
         # puts  `cucumber --require features #{file.path}`
         # Cucumber::Runtime.new(configuration([file.path, '-r', 'features'])).run!
         file.unlink
