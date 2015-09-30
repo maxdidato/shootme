@@ -12,7 +12,7 @@ Then(/^the screenshot '(.*)' should include the text '(.*)'/) do |screenshot,tex
 end
 
 Given(/^I performed a tunnel to browserstack$/) do
-  process = ChildProcess.build("#{File.expand_path('../../../', __FILE__)}/tools/BrowserStackLocal", "nDHmVcRsS9stDEZi3pHy")
+  process = ChildProcess.build("#{File.expand_path('../../../', __FILE__)}/tools/BrowserStackLocal", "nDHmVcRsS9stDEZi3pHy",'-forcelocal')
   process.io.inherit!
   process.start
 end

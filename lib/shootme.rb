@@ -2,7 +2,7 @@ require "shootme/version"
 require "shootme/shooter"
 module Shootme
   def self.included(base)
-    project_dir =Pathname.new(caller.map{|el|el.split(':')}.find{|el| el[2]=="in `include'"}[0]).parent.parent.parent
+    project_dir =Pathname.new(caller.map { |el| el.split(':') }.find { |el| el[2]=="in `include'" }[0]).parent.parent.parent
     config= YAML.load_file("#{project_dir}/.shootme.yml")
     shooter = Shootme::Shooter.new(config[:credentials])
     proc=Proc.new do |scenario, block|
@@ -31,15 +31,16 @@ module Shootme
         file = Tempfile.new(['hello', '.feature'], "#{project_dir}/features")
         file.write("Feature: #{browser_setting[:browser]} #{browser_setting[:browser_version]}\n Scenario: Perform\n"+text)
         file.close
-        file2 = Tempfile.new(['hello', '.rb'],  "#{project_dir}/features/support")
+        file2 = Tempfile.new(['hello', '.rb'], "#{project_dir}/features/support")
         file2.write("Capybara.current_driver=:#{driver_name}")
         file2.close
-        Cucumber::Cli::Main.execute([file.path, '-r', 'features'])
+        lambda { Cucumber::Cli::Main.execute([file.path, '-r', 'features']) }
         # puts  `cucumber --require features #{file.path}`
         # Cucumber::Runtime.new(configuration([file.path, '-r', 'features'])).run!
         file.unlink
         file2.unlink
         #
+
         #     block.call
       end
     end
