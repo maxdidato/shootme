@@ -1,10 +1,14 @@
 ---
 :credentials:
-  :username: max706
-  :password: nDHmVcRsS9stDEZi3pHy
+  :username: max708
+  :password: TP9i3x6EtbQGbDqjbMA5
 :screenshots_folder: "/tmp"
 :browsers:
-- :browser: Chrom
-  :browser_version: '7.0'
+- :browser: IE
+  :browser_version: 11.0
   :os: Windows
-  :os_version: XP
+  :os_version: 7
+- :browser: IE
+  :browser_version: 10.0
+  :os: Windows
+  :os_version: 7
