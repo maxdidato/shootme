@@ -19,7 +19,8 @@ module Shootme
       Capybara.current_session.visit(url)
       browser = Capybara.current_session.driver.browser
       cookies.each do |cookie|
-        browser.manage.add_cookie :name => cookie[:name], :value => cookie[:value]
+        browser.driver.execute_script "document.cookie=\“#{cookie[:name]}=#{cookie[:value]}; path=/\";"
+        # browser.manage.add_cookie :name => cookie[:name], :value => cookie[:value]
       end
     end
 
