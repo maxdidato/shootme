@@ -27,7 +27,9 @@ module Shootme
       config[:browsers].each do |browser_setting|
         driver_name= shooter.set_driver(browser_setting)
         Capybara.reset_sessions!
-        text = scenario.test_steps.map { |step| step.source.last.keyword+step.source.last.name }.inject("") { |str, step| str = str+step+"\n" }
+        #TODO:Test this against all the possible NON test steps
+        filtered_steps = scenario.test_steps.select{|el|el.source.last.is_a?(Cucumber::Core::Ast::Step)}
+        text = filtered_steps.map { |step| step.source.last.keyword+step.source.last.name }.inject("") { |str, step| str = str+step+"\n" }
         file = Tempfile.new(['hello', '.feature'], "#{project_dir}/features")
         file.write("Feature: #{browser_setting[:browser]} #{browser_setting[:browser_version]}\n Scenario: Perform\n"+text)
         file.close
