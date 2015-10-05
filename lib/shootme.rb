@@ -37,10 +37,9 @@ module Shootme
         file2.write("Capybara.current_driver=:#{driver_name}")
         file2.close
         begin
-          a = Cucumber::Cli::Main.execute([file.path, '-r', 'features'])
-          a
+        Cucumber::Cli::Main.execute([file.path, '-r', 'features'])
         rescue SystemExit => e
-          scenario.fail if e.status!=0
+          @failed = e.status!=0
         rescue Exception;
         end
 
@@ -52,6 +51,7 @@ module Shootme
 
         #     block.call
       end
+      scenario.fail if @failed
     end
     Cucumber::RbSupport::RbDsl.register_rb_hook('around', ["@multibrowser"], second_proc)
 
