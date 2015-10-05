@@ -28,7 +28,7 @@ module Shootme
         driver_name= shooter.set_driver(browser_setting)
         Capybara.reset_sessions!
         #TODO:Test this against all the possible NON test steps
-        filtered_steps = scenario.test_steps.select{|el|el.source.last.is_a?(Cucumber::Core::Ast::Step)}
+        filtered_steps = scenario.test_steps.select { |el| el.source.last.is_a?(Cucumber::Core::Ast::Step) }
         text = filtered_steps.map { |step| step.source.last.keyword+step.source.last.name }.inject("") { |str, step| str = str+step+"\n" }
         file = Tempfile.new(['hello', '.feature'], "#{project_dir}/features")
         file.write("Feature: #{browser_setting[:browser]} #{browser_setting[:browser_version]}\n Scenario: Perform\n"+text)
@@ -37,8 +37,11 @@ module Shootme
         file2.write("Capybara.current_driver=:#{driver_name}")
         file2.close
         begin
-        Cucumber::Cli::Main.execute([file.path, '-r', 'features'])
-        rescue Exception =>e
+          a = Cucumber::Cli::Main.execute([file.path, '-r', 'features'])
+          a
+        rescue SystemExit => e
+          scenario.fail if e.status!=0
+        rescue Exception;
         end
 
         # puts  `cucumber --require features #{file.path}`
