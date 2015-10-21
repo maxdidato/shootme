@@ -1,100 +1,63 @@
-Feature: Shootme
+Feature: As a user I want to take a screenshot of the last page shown from my cucumber test for all
+         the browsers I included in the configuration
 
-Scenario: Take a screenshot
+Scenario: Single Browser screenshot
   Given I performed a tunnel to browserstack
+  And a simple application showing the user agent is running
   And I have the following configuration
-  """
+
+"""
 ---
 :credentials:
-    :username: max706
-    :password: nDHmVcRsS9stDEZi3pHy
+  :username: "max730"
+  :password: "4uya9z4zNHXwxUsh9JcX"
 :screenshots_folder: '/tmp'
-  :browsers:
-    -
-      :browser: IE
-      :browser_version: '7.0'
-      :os: Windows
-      :os_version: XP
-    """
+:browsers:
+  -
+    :browser: IE
+    :browser_version: 11.0
+    :os: Windows
+    :os_version: 7
+"""
   When I execute this scenario
   """
   Feature: A Feature
 
   @screenshot
   Scenario: The Screenshot
-  When I go on http://localhost:4567/
+  Then I hit the simple web app
   """
-  Then the screenshot '/tmp/The Screenshot/ie_7.0.jpg' should include the text 'MSIE 7.0'
+  Then the screenshot '/tmp/The Screenshot/ie_11.0.jpg' should include the text 'rv:11.0'
 
 
 Scenario: Take multiple screenshots
   And I have the following configuration
-  """
+"""
 ---
 :credentials:
-    :username: massimiliano8
-    :password: scQH4sZwU3TYhWygmvpp
+  :username: "max730"
+  :password: "4uya9z4zNHXwxUsh9JcX"
 :screenshots_folder: '/tmp'
-  :browsers:
-    -
-      :browser: IE
-      :browser_version: 11.0
-      :os: Windows
-      :os_versiuon: 7
-    -
-      :browser: IE
-      :browser_version: 10.0
-      :os: Windows
-      :os_version: 7
-    """
+:browsers:
+  -
+    :browser: IE
+    :browser_version: 11.0
+    :os: Windows
+    :os_version: 7
+  -
+    :browser: IE
+    :browser_version: 10.0
+    :os: Windows
+    :os_version: 7
+"""
   When I execute this scenario
   """
   Feature: A Feature
 
   @screenshot
   Scenario: The Screenshot
-  When I go on http://localhost:4567/
+  Then I hit the simple web app
   """
   Then the screenshot '/tmp/The Screenshot/ie_11.0.jpg' should include the text '11.0'
   Then the screenshot '/tmp/The Screenshot/ie_10.0.jpg' should include the text '10.0'
 
-
-  @multibrowser
-  Scenario: Multibrowser
-#    Given I performed a tunnel to browserstack
-
-    And I have the following configuration
-  """
----
-:credentials:
-    :username: max706
-    :password: nDHmVcRsS9stDEZi3pHy
-:screenshots_folder: '/tmp'
-  :browsers:
-    -
-      :browser: IE
-      :browser_version: 11.0
-      :os: Windows
-      :os_version: 7
-    -
-      :browser: IE
-      :browser_version: 10.0
-      :os: Windows
-      :os_version: 7
-    """
-    When I execute this scenario
-  """
-  Feature: A Feature
-
-  @multibrowser
-  Scenario: Ther Screenshot
-  When I go on http://localhost:4567/
-  Then I should
-  """
-
-
-    @multibrowser
-    Scenario: Hello e
-      When I go on http://localhost:4567
-      Then I should
-      Then I see
