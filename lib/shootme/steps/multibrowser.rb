@@ -3,8 +3,7 @@ module Shootme
     def self.create(scenario,config,project_dir,block)
 
       config[:browsers].each do |browser_setting|
-        shooter = Shootme::Shooter.new(config[:credentials])
-        driver_name= shooter.set_driver(browser_setting)
+        driver_name= Shootme::Adapter.current_adapter.set_driver(browser_setting,config[:credentials])
         Capybara.reset_sessions!
         #TODO:Test this against all the possible NON test steps
         filtered_steps = scenario.test_steps.select { |el| el.source.last.is_a?(Cucumber::Core::Ast::Step) }

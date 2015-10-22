@@ -1,6 +1,9 @@
 require 'capybara'
 require 'sys/proctable'
 require 'os'
+require 'childprocess'
+require 'rtesseract'
+require 'waitutil'
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 # PROJECT_DIR = File.expand_path('../', __FILE__)
 require 'shootme'

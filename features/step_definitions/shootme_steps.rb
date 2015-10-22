@@ -1,7 +1,3 @@
-require 'childprocess'
-require 'rtesseract'
-require 'waitutil'
-
 Given(/^I go on (.*)$/) do |url|
   Capybara.current_session.visit(url)
 end

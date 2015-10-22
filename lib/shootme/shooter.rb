@@ -17,10 +17,8 @@ module Shootme
 
     def restore_cookies(cookies,url)
       Capybara.current_session.visit(url)
-      # browser = Capybara.current_session.driver.browser
       cookies.each do |cookie|
         Capybara.current_session.driver.execute_script "document.cookie=\“#{cookie[:name]}=#{cookie[:value]}; path=/\";"
-        # browser.manage.add_cookie :name => cookie[:name], :value => cookie[:value]
       end
     end
 
@@ -29,21 +27,8 @@ module Shootme
       Capybara.current_session.save_screenshot("#{screenshot_name}.jpg")
     end
 
-    def set_driver opts
-      caps = Selenium::WebDriver::Remote::Capabilities.new
-      caps['browserstack.tunnel'] = 'true'
-      name = "shootme#{rand(9999)}".to_sym
-      Capybara.register_driver name do |app|
-        Capybara::Selenium::Driver.new(app,
-                                       {:url => "http://#{@credentials[:username]}:#{@credentials[:password]}@hub.browserstack.com/wd/hub",
-                                        :browser => :remote,
-                                        :desired_capabilities => caps.merge!(opts)})
-      end
-      name
-    end
-
     def perform_screenshooting browser_settings
-      driver_name = set_driver browser_settings
+      driver_name = Shootme::Adapter.current_adapter.set_driver browser_settings,credentials
       cookies, url = save_browser_state
       Capybara.using_driver driver_name do
         restore_cookies(cookies,url)
