@@ -15,7 +15,7 @@ Scenario: Single Browser screenshot
 :browsers:
   -
     :browser: IE
-    :browser_version: 11.0
+    :browser_version: 10.0
     :os: Windows
     :os_version: 7
 """
@@ -27,7 +27,7 @@ Scenario: Single Browser screenshot
   Scenario: The Screenshot
   Then I hit the simple web app
   """
-  Then the screenshot '/tmp/The Screenshot/ie_11.0.jpg' should include the text 'rv:11.0'
+  Then the screenshot '/tmp/The Screenshot/ie_10.0.jpg' should include the text 'MSIE 10.0'
 
 
 Scenario: Take multiple screenshots
