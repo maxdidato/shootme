@@ -10,8 +10,8 @@ Feature: As a user I want to run my cucumber tests against all
       """
       ---
       :credentials:
-        :username: "max730"
-        :password: "4uya9z4zNHXwxUsh9JcX"
+        :username: "massimo54"
+        :password: "4wpqYKWFaJCY9pdzvxdh"
       :screenshots_folder: '/tmp'
       :browsers:
         -
@@ -46,8 +46,8 @@ Feature: As a user I want to run my cucumber tests against all
       """
       ---
       :credentials:
-        :username: "max730"
-        :password: "4uya9z4zNHXwxUsh9JcX"
+        :username: "massimo54"
+        :password: "4wpqYKWFaJCY9pdzvxdh"
       :screenshots_folder: '/tmp'
       :browsers:
         -

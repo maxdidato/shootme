@@ -18,7 +18,7 @@ module Shootme
     def restore_cookies(cookies,url)
       Capybara.current_session.visit(url)
       cookies.each do |cookie|
-        Capybara.current_session.driver.execute_script "document.cookie=\“#{cookie[:name]}=#{cookie[:value]}; path=/\";"
+        Capybara.current_session.driver.browser.execute_script "document.cookie='#{cookie[:name]}=#{cookie[:value]}; path=/';"
       end
     end
 

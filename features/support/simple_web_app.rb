@@ -22,10 +22,10 @@ class SimpleWebApp
                      "<h1>FAIL</h1>"
                    else
 
-                     "<h1>#{user_agent}</h1><h2>hello</h2>"
+                     "<h1>#{user_agent}</h1><h1>hello #{get_cookie('cookie',req)}</h1>"
                    end
       end
-      t=Thread.fork {@server.start }
+      t=Thread.fork { @server.start }
       t.join(1)
     end
 
@@ -37,6 +37,14 @@ class SimpleWebApp
       @port
     end
 
+    private
+    def get_cookie name,req
+      cookies = req.header['cookie']
+      raw_cookie = if cookies && cookies.first
+                     cookies.first.split(';').find { |cookie| cookie.include?("#{name}=") }
+                   end
+      raw_cookie.split('=')[1] if raw_cookie
+    end
   end
 
 end

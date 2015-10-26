@@ -9,8 +9,8 @@ Scenario: Single Browser screenshot
 """
 ---
 :credentials:
-  :username: "max730"
-  :password: "4uya9z4zNHXwxUsh9JcX"
+  :username: "massimo54"
+  :password: "4wpqYKWFaJCY9pdzvxdh"
 :screenshots_folder: '/tmp'
 :browsers:
   -
@@ -35,8 +35,8 @@ Scenario: Take multiple screenshots
 """
 ---
 :credentials:
-  :username: "max730"
-  :password: "4uya9z4zNHXwxUsh9JcX"
+  :username: "massimo54"
+  :password: "4wpqYKWFaJCY9pdzvxdh"
 :screenshots_folder: '/tmp'
 :browsers:
   -
@@ -60,4 +60,38 @@ Scenario: Take multiple screenshots
   """
   Then the screenshot '/tmp/The Screenshot/ie_11.0.jpg' should include the text '11.0'
   Then the screenshot '/tmp/The Screenshot/ie_10.0.jpg' should include the text '10.0'
+
+
+
+
+Scenario: Cookies
+  Given I have the following configuration
+"""
+---
+:credentials:
+  :username: "massimo54"
+  :password: "4wpqYKWFaJCY9pdzvxdh"
+:screenshots_folder: '/tmp'
+:browsers:
+  -
+    :browser: IE
+    :browser_version: 9.0
+    :os: Windows
+    :os_version: 7
+"""
+  And I performed a tunnel to browserstack
+  And a simple application showing the user agent is running
+  And I hit the simple web app
+  When I drop a cookie 'cookie=max'
+  And I hit the simple web app
+  Then I should see 'hello max'
+  When I execute this scenario
+  """
+  Feature: a feature
+   @screenshot
+  Scenario: The Screenshot
+  When I hit the simple web app
+  """
+  Then the screenshot '/tmp/The Screenshot/IE_9.0.jpg' should include the text 'hello max'
+
 
