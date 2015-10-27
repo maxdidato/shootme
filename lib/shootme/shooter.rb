@@ -15,11 +15,12 @@ module Shootme
       return cookies, url
     end
 
-    def restore_cookies(cookies,url)
+    def restore_cookies(cookies, url)
       Capybara.current_session.visit(url)
-      cookies.each do |cookie|
-        Capybara.current_session.driver.browser.execute_script "document.cookie='#{cookie[:name]}=#{cookie[:value]}; path=/';"
+      cookie_string = cookies.each.inject("") do |cookie_string, cookie|
+        cookie_string += "#{cookie[:name]}=#{cookie[:value]};"
       end
+      Capybara.current_session.driver.browser.execute_script "document.cookie='#{cookie_string}; path=/';"
     end
 
     def take_screenshot(url, screenshot_name)
