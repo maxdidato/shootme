@@ -2,15 +2,15 @@ Feature: As a user I want to take a screenshot of the last page shown from my cu
          the browsers I included in the configuration
 
 Scenario: Single Browser screenshot
-#  Given I performed a tunnel to browserstack
+  Given I performed a tunnel to browserstack
   And a simple application showing the user agent is running
   And I have the following configuration
 
 """
 ---
 :credentials:
-  :username: "colosso1"
-  :password: "pYAeynvnb5CnUnv5i584"
+  :username: "massimo54"
+  :password: "4wpqYKWFaJCY9pdzvxdh"
 :screenshots_folder: '/tmp'
 :browsers:
   -
