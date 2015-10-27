@@ -29,12 +29,18 @@ module Shootme
 
     def perform_screenshooting browser_settings
       driver_name = Shootme::Adapter.current_adapter.set_driver browser_settings,credentials
-      cookies, url = save_browser_state
+      # cookies, url = save_browser_state
+
+   do_the_magic(Capybara.current_session.html)
       Capybara.using_driver driver_name do
-        restore_cookies(cookies,url)
+        # restore_cookies(cookies,url)
         screenshot_name = "#{browser_settings[:browser].to_s.downcase}_#{browser_settings[:browser_version].to_s.downcase}"
-        take_screenshot(url, screenshot_name)
+        take_screenshot("http://localhost:#{MagicServer.port}", screenshot_name)
       end
+    end
+
+    def do_the_magic file
+      MagicServer.serve(file)
     end
   end
 end

@@ -1,4 +1,5 @@
 require "shootme/version"
+require 'shootme/server'
 require "shootme/drivers"
 require 'shootme/adapter'
 require "shootme/shooter"
